@@ -25,9 +25,11 @@ while True: #loop principal do jogo
 
     #rect(aonde vai ser desenhado, (o esquema RPG ), (posição x, posicão y, largura, altura))
     pygame.draw.rect(tela, (255,0,0), (200, 300,40,80))
-    #para desenhar circulos 
+    #para desenhar circulos se define o raio ali no 40
     pygame.draw.circle(tela, (0,0,255),(300,260),40)
 
+    #para desenhar linha se define a cor, aoonde começa e aonde termina
+    pygame.draw.line(tela, (255,255,0), (390,0),(390,600), 5)
 
 
     pygame.display.update()
