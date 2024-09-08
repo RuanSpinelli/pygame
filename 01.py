@@ -20,6 +20,16 @@ while True: #loop principal do jogo
             pygame.quit()
             exit()
 
+
+    #função para desenhar retangulo
+
+    #rect(aonde vai ser desenhado, (o esquema RPG ), (posição x, posicão y, largura, altura))
+    pygame.draw.rect(tela, (255,0,0), (200, 300,40,80))
+    #para desenhar circulos 
+    pygame.draw.circle(tela, (0,0,255),(300,260),40)
+
+
+
     pygame.display.update()
 
 
