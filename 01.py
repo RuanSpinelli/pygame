@@ -8,7 +8,7 @@ pygame.init() #inicializar o pygame
 largura = 640
 altura = 480
 x =  largura/2
-y = 0
+y = altura/2
 
 tela = pygame.display.set_mode((largura, altura)) #Definindo as dimensões da janela
 pygame.display.set_caption("jogo") #definindo o titulo da janela do jogo
@@ -24,18 +24,37 @@ while True: #loop principal do jogo
         if event.type == QUIT:
             pygame.quit()
             exit()
+        
+        """
+        if event.type == KEYDOWN:
+            if event.key == K_a:
+                x -= 20
+            if event.key == K_d:
+                x += 20
+            if event.key == K_w:
+                y -= 20
+            if event.key == K_s:
+                y += 20
+            """
 
 
+
+    if pygame.key.get_pressed()[K_a]:
+        x -= 20
+    if pygame.key.get_pressed()[K_d]:
+        x += 20
+
+
+    if pygame.key.get_pressed()[K_s]:
+        y += 20
+    if pygame.key.get_pressed()[K_w]:
+        y -= 20
     #função para desenhar retangulo
 
     #rect(aonde vai ser desenhado, (o esquema RPG ), (posição x, posicão y, largura, altura))
     pygame.draw.rect(tela, (255,0,0), (x, y,40,80))
     
 #lógica para fazer o retangulo sumir
-    if y >= altura:
-        y = 1
-    y += 1
-
 
 
 
