@@ -57,11 +57,13 @@ pygame.display.set_caption("jogo")
 #criando um relogio dentro do jogo
 relogio = pygame.time.Clock() 
 
+morreu = False
+
 
 running = True #uma variavel que recebe um boolian "true" para fazer o loop principal do jogo
 
 lista_cobra = []
-comprimento_inicial = 0
+comprimento_inicial = 3
 
 def aumenta_cobra(lista_cobra):
     for XeY in lista_cobra:
@@ -69,7 +71,17 @@ def aumenta_cobra(lista_cobra):
         pygame.draw.rect(tela, (0,255,0), (XeY[0], XeY[1], 20,20))
 
 
-
+def reiniciar_jogo():
+    global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x_maca, y_maca, morreu
+    pontos= 3
+    comprimento_inicial = 3
+    x_cobra = int(largura/2)
+    y_cobra = int(altura/2)
+    lista_cobra = []
+    lista_cabeca = []
+    x_maca = randint(40,600)    
+    y_maca = randint(50,430)
+    morreu = False
 
 
 while running: #loop principal do jogo
@@ -171,6 +183,47 @@ while running: #loop principal do jogo
 
     
     lista_cobra.append(lista_cabeca)
+
+
+    #condicional para checar se a cabeça da cobra toca na propria cabeça
+    if lista_cobra.count(lista_cabeca) > 1:
+        fonte2 = pygame.font.SysFont("arial", 20, True, True)
+        mensagem = f"""game over! Pressione a tecla "R". Pontos = {pontos}"""
+
+        texto_formatado = fonte2.render(mensagem, True, (0,0,0))
+        ret_texto = texto_formatado.get_rect()
+
+
+        morreu = True
+        while morreu:
+            tela.fill((255,255,255))
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == KEYDOWN:
+                    if event.key == K_r:
+                        reiniciar_jogo()
+
+            ret_texto.center = (largura//2, altura//2)               
+            tela.blit(texto_formatado, ret_texto)
+            pygame.display.update()
+
+
+    if x_cobra > largura:
+        x_cobra = 0
+    
+    if x_cobra < 0:
+        x_cobra = largura
+
+    if y_cobra < 0:
+        y_cobra = altura
+
+    if y_cobra > altura:
+        y_cobra = 0
+
+
+
 
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
